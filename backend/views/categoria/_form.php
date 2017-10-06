@@ -18,8 +18,8 @@ use kartik\file\FileInput;
 
     <?=  $form->field($model, 'file')->widget(FileInput::classname(), [
           'options' => ['accept' => 'image/*'],
-      ]);
-      ?>
+               'pluginOptions'=>['allowedFileExtensions'=>['jpg','png'],'showUpload' => false,],
+          ]);   ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
