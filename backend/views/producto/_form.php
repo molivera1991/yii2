@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use kartik\select2\Select2;
 /* @var $this yii\web\View */
 /* @var $model common\models\Producto */
 /* @var $form yii\widgets\ActiveForm */
@@ -26,10 +26,23 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'ProductoImagen3')->textInput() ?>
 
-    <?=$form->field($model, 'ProductoCategoria')->dropDownList($model->comboCategoria)?>
+    <?= $form->field($model, 'ProductoCategoria')->widget(Select2::classname(), [
+            'data' => $model->comboCategoria,
+            'options' => ['placeholder' => 'Seleccione una Categoria de Producto','style'=>'width:250px;'],
+            'pluginOptions' => [
+            'allowClear' => true
+            ],
+            ]);
+    ?>
 
-    <?= $form->field($model, 'ProductoComercio')->textInput() ?>
-
+    <?= $form->field($model, 'ProductoComercio')->widget(Select2::classname(), [
+            'data' => $model->comboComercio,
+            'options' => ['placeholder' => 'Seleccione Comercio que vende Producto','style'=>'width:250px;'],
+            'pluginOptions' => [
+            'allowClear' => true
+            ],
+            ]);
+    ?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

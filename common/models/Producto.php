@@ -99,9 +99,14 @@ class Producto extends \yii\db\ActiveRecord
         return $this->hasOne(Comercio::className(), ['ComercioId' => 'ProductoComercio']);
     }
 
-    //RELLENAR DROOPDOWNS
+    //RELLENAR DROOPDOWNS o Select2 de Claves Foraneas
     public function getcomboCategoria() {
     $models = Categoria::find()->asArray()->all();
     return ArrayHelper::map($models, 'CategoriaId', 'CategoriaNombre');
+    }
+
+    public function getcomboComercio() {
+    $models = Comercio::find()->asArray()->all();
+    return ArrayHelper::map($models, 'ComercioId', 'ComercioNombre');
     }
 }
