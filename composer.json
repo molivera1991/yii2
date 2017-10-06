@@ -21,7 +21,8 @@
         "eold/yii2-apidoc-generator": "^1.0.",
         "dmstr/yii2-adminlte-asset": "2.*",
         "aws/aws-sdk-php": "3.*",
-        "kartik-v/yii2-widget-select2": "@dev"
+        "kartik-v/yii2-widget-select2": "@dev",
+        "kartik-v/yii2-widget-fileinput": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

@@ -8,6 +8,7 @@ use backend\models\CategoriaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * CategoriaController implements the CRUD actions for Categoria model.
@@ -65,7 +66,15 @@ class CategoriaController extends Controller
     {
         $model = new Categoria();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        //if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ) {
+          //subir imagen al file system
+          $model->file = UploadedFile::getInstance($model, 'file');
+          $model->file->saveAs('uploads/' . $model->file->baseName . '.' . $model->file->extension);
+          $model->CategoriaImagen = 'uploads/' . $model->file->baseName . '.' . $model->file->extension;
+
+            $model->save();
+
             return $this->redirect(['view', 'id' => $model->CategoriaId]);
         } else {
             return $this->render('create', [
