@@ -8,7 +8,7 @@ use backend\models\ProductoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\web\UploadedFile;
 /**
  * ProductoController implements the CRUD actions for Producto model.
  */
@@ -65,7 +65,26 @@ class ProductoController extends Controller
     {
         $model = new Producto();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        //if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ) {
+
+          //subir imagen al file system
+          $model->file = UploadedFile::getInstance($model, 'file');
+          $model->file->saveAs('uploads/' . $model->file->baseName . '.' . $model->file->extension);
+          $model->ProductoImagen1 = 'uploads/' . $model->file->baseName . '.' . $model->file->extension;
+
+          //imagen2
+          $model->file2 = UploadedFile::getInstance($model, 'file2');
+          $model->file2->saveAs('uploads/' . $model->file2->baseName . '.' . $model->file2->extension);
+          $model->ProductoImagen2 = 'uploads/' . $model->file2->baseName . '.' . $model->file2->extension;
+
+          //imagen3
+          $model->file3 = UploadedFile::getInstance($model, 'file3');
+          $model->file3->saveAs('uploads/' . $model->file3->baseName . '.' . $model->file3->extension);
+          $model->ProductoImagen3 = 'uploads/' . $model->file3->baseName . '.' . $model->file3->extension;
+
+          $model->save();
+
             return $this->redirect(['view', 'id' => $model->ProductoId]);
         } else {
             return $this->render('create', [

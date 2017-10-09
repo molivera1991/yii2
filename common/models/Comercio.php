@@ -82,6 +82,7 @@ class Comercio extends \yii\db\ActiveRecord
     $models = Usuario::find()->asArray()->all();
     return ArrayHelper::map($models, 'UsuarioId', 'UsuarioNombre');
     }
+    
     public function getunUsuario($idusu) {
     return $models = Usuario::findOne($idusu);
     //return ArrayHelper::map($models, 'UsuarioId', 'UsuarioNombre');

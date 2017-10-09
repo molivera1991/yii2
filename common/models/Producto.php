@@ -33,6 +33,10 @@ class Producto extends \yii\db\ActiveRecord
         return 'producto';
     }
 
+    public $file;
+    public $file2;
+    public $file3;
+
     /**
      * @inheritdoc
      */
@@ -41,6 +45,9 @@ class Producto extends \yii\db\ActiveRecord
         return [
             [['ProductoNombre', 'ProductoCodigoBarra', 'ProductoPrecio', 'ProductoStock', 'ProductoCategoria', 'ProductoComercio'], 'required'],
             [['ProductoPrecio', 'ProductoStock', 'ProductoCategoria', 'ProductoComercio'], 'integer'],
+            [['file'], 'file'],
+            [['file2'], 'file'],
+            [['file3'], 'file'],
             [['ProductoNombre', 'ProductoCodigoBarra'], 'string', 'max' => 45],
             [['ProductoImagen1', 'ProductoImagen2', 'ProductoImagen3'], 'string', 'max' => 200],
             [['ProductoCategoria'], 'exist', 'skipOnError' => true, 'targetClass' => Categoria::className(), 'targetAttribute' => ['ProductoCategoria' => 'CategoriaId']],
@@ -59,9 +66,12 @@ class Producto extends \yii\db\ActiveRecord
             'ProductoCodigoBarra' => 'Producto Codigo Barra',
             'ProductoPrecio' => 'Producto Precio',
             'ProductoStock' => 'Producto Stock',
-            'ProductoImagen1' => 'Producto Imagen1',
-            'ProductoImagen2' => 'Producto Imagen2',
-            'ProductoImagen3' => 'Producto Imagen3',
+            // 'ProductoImagen1' => 'Producto Imagen1',
+            // 'ProductoImagen2' => 'Producto Imagen2',
+            // 'ProductoImagen3' => 'Producto Imagen3',
+            'file' => 'Producto Imagen1',
+            'file2' => 'Producto Imagen2',
+            'file3' => 'Producto Imagen3',
             'ProductoCategoria' => 'Producto Categoria',
             'ProductoComercio' => 'Producto Comercio',
         ];
@@ -108,5 +118,13 @@ class Producto extends \yii\db\ActiveRecord
     public function getcomboComercio() {
     $models = Comercio::find()->asArray()->all();
     return ArrayHelper::map($models, 'ComercioId', 'ComercioNombre');
+    }
+
+    public function getunComercio($idcom) {
+    return $models = Comercio::findOne($idcom);
+    }
+
+    public function getunCategoria($idcat) {
+    return $models = Categoria::findOne($idcat);
     }
 }

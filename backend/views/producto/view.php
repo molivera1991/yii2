@@ -33,11 +33,46 @@ $this->params['breadcrumbs'][] = $this->title;
             'ProductoCodigoBarra',
             'ProductoPrecio',
             'ProductoStock',
-            'ProductoImagen1',
-            'ProductoImagen2',
-            'ProductoImagen3',
-            'ProductoCategoria',
-            'ProductoComercio',
+            // 'ProductoImagen1',
+            [
+              'attribute' => 'Producto Imagen1',
+              'format' => 'raw',
+              'value' => function($model) {
+                return Html::img($model->ProductoImagen1, ['width' => 150, 'alt'=> $model->ProductoNombre ]);
+              },
+            ],
+            // 'ProductoImagen2',
+            [
+              'attribute' => 'Producto Imagen2',
+              'format' => 'raw',
+              'value' => function($model) {
+                return Html::img($model->ProductoImagen2, ['width' => 150, 'alt'=> $model->ProductoNombre ]);
+              },
+            ],
+            // 'ProductoImagen3',
+            [
+              'attribute' => 'Producto Imagen3',
+              'format' => 'raw',
+              'value' => function($model) {
+                return Html::img($model->ProductoImagen3, ['width' => 150, 'alt'=> $model->ProductoNombre ]);
+              },
+            ],
+            //'ProductoCategoria',
+            [
+              'attribute' => 'Producto Categoria',
+              'format' => 'raw',
+              'value' => function($model) {
+                return $model->getunCategoria($model->ProductoCategoria)->CategoriaNombre ;
+              },
+            ],
+            //'ProductoComercio',
+            [
+              'attribute' => 'Producto Comercio',
+              'format' => 'raw',
+              'value' => function($model) {
+                return $model->getunComercio($model->ProductoComercio)->ComercioNombre ;
+              },
+            ],
         ],
     ]) ?>
 

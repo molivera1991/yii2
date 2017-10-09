@@ -30,10 +30,31 @@ $this->params['breadcrumbs'][] = $this->title;
             'ProductoPrecio',
             'ProductoStock',
             // 'ProductoImagen1',
+            [
+              'attribute' => 'Producto Imagen1',
+              'format' => 'raw',
+              'value' => function($model) {
+                return Html::img($model->ProductoImagen1, ['width' => 50, 'alt'=> $model->ProductoNombre ]);
+              },
+            ],
             // 'ProductoImagen2',
             // 'ProductoImagen3',
-            // 'ProductoCategoria',
-            // 'ProductoComercio',
+            //'ProductoCategoria',
+            [
+              'attribute' => 'Producto Categoria',
+              'format' => 'raw',
+              'value' => function($model) {
+                return $model->getunCategoria($model->ProductoCategoria)->CategoriaNombre ;
+              },
+            ],
+            //'ProductoComercio',
+            [
+              'attribute' => 'Producto Comercio',
+              'format' => 'raw',
+              'value' => function($model) {
+                return $model->getunComercio($model->ProductoComercio)->ComercioNombre ;
+              },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
