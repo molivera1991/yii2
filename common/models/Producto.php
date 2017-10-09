@@ -12,9 +12,9 @@ use yii\helpers\ArrayHelper;
  * @property string $ProductoCodigoBarra
  * @property integer $ProductoPrecio
  * @property integer $ProductoStock
- * @property resource $ProductoImagen1
- * @property resource $ProductoImagen2
- * @property resource $ProductoImagen3
+ * @property string $ProductoImagen1
+ * @property string $ProductoImagen2
+ * @property string $ProductoImagen3
  * @property integer $ProductoCategoria
  * @property integer $ProductoComercio
  *
@@ -41,8 +41,8 @@ class Producto extends \yii\db\ActiveRecord
         return [
             [['ProductoNombre', 'ProductoCodigoBarra', 'ProductoPrecio', 'ProductoStock', 'ProductoCategoria', 'ProductoComercio'], 'required'],
             [['ProductoPrecio', 'ProductoStock', 'ProductoCategoria', 'ProductoComercio'], 'integer'],
-            [['ProductoImagen1', 'ProductoImagen2', 'ProductoImagen3'], 'string'],
             [['ProductoNombre', 'ProductoCodigoBarra'], 'string', 'max' => 45],
+            [['ProductoImagen1', 'ProductoImagen2', 'ProductoImagen3'], 'string', 'max' => 200],
             [['ProductoCategoria'], 'exist', 'skipOnError' => true, 'targetClass' => Categoria::className(), 'targetAttribute' => ['ProductoCategoria' => 'CategoriaId']],
             [['ProductoComercio'], 'exist', 'skipOnError' => true, 'targetClass' => Comercio::className(), 'targetAttribute' => ['ProductoComercio' => 'ComercioId']],
         ];

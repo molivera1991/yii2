@@ -28,8 +28,22 @@ $this->params['breadcrumbs'][] = $this->title;
             'ComercioNombre',
             'ComercioLatitud',
             'ComercioLongitud',
-            'ComercioLogo',
-            // 'ComercioGerente',
+            //'ComercioLogo',
+            [
+              'attribute' => 'Comercio Logo',
+              'format' => 'raw',
+              'value' => function($model) {
+                return Html::img($model->ComercioLogo, ['width' => 100, 'alt'=> $model->ComercioLogo ]);
+              },
+            ],
+            //'ComercioGerente',
+            [
+              'attribute' => 'Comercio Gerente',
+              'format' => 'raw',
+              'value' => function($model) {
+                return $model->getunUsuario($model->ComercioGerente)->UsuarioNombre ;
+              },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -9,7 +9,7 @@ use Yii;
  *
  * @property integer $CategoriaId
  * @property string $CategoriaNombre
- * @property resource $CategoriaImagen
+ * @property string $CategoriaImagen
  *
  * @property Producto[] $productos
  */

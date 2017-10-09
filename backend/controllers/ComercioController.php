@@ -8,6 +8,7 @@ use backend\models\ComercioSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ComercioController implements the CRUD actions for Comercio model.
@@ -65,7 +66,16 @@ class ComercioController extends Controller
     {
         $model = new Comercio();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        //if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ) {
+
+        //subir imagen al file system
+        $model->file = UploadedFile::getInstance($model, 'file');
+        $model->file->saveAs('uploads/' . $model->file->baseName . '.' . $model->file->extension);
+        $model->ComercioLogo = 'uploads/' . $model->file->baseName . '.' . $model->file->extension;
+
+        $model->save();
+
             return $this->redirect(['view', 'id' => $model->ComercioId]);
         } else {
             return $this->render('create', [

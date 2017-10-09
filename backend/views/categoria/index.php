@@ -26,8 +26,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'CategoriaId',
             'CategoriaNombre',
-            'CategoriaImagen',
-
+            //'CategoriaImagen',
+            [
+              'attribute' => 'Categoria Imagen',
+              'format' => 'raw',
+              'value' => function($model) {
+                return Html::img($model->CategoriaImagen, ['width' => 50, 'alt'=> $model->CategoriaNombre ]);
+              },
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
