@@ -23,7 +23,6 @@ class Categoria extends \yii\db\ActiveRecord
         return 'categoria';
     }
 
-    public $file;
 
     /**
      * @inheritdoc
@@ -32,7 +31,6 @@ class Categoria extends \yii\db\ActiveRecord
     {
         return [
             [['CategoriaNombre'], 'required'],
-            [['file'], 'file'],
             [['CategoriaImagen'], 'string', 'max' => 200],
             [['CategoriaNombre'], 'string', 'max' => 45],
             [['CategoriaNombre'], 'unique'],
@@ -48,7 +46,6 @@ class Categoria extends \yii\db\ActiveRecord
             'CategoriaId' => 'Categoria ID',
             'CategoriaNombre' => 'Categoria Nombre',
             'CategoriaImagen' => 'Categoria Imagen',
-            'file' => 'Categoria Imagen',
         ];
     }
 
