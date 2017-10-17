@@ -70,12 +70,20 @@ class CategoriaController extends Controller
         if ($model->load(Yii::$app->request->post()) ) {
           //subir imagen al file system
           $model->file = UploadedFile::getInstance($model, 'file');
-          $model->file->saveAs('uploads/' . $model->file->baseName . '.' . $model->file->extension);
-          $model->CategoriaImagen = 'uploads/' . $model->file->baseName . '.' . $model->file->extension;
 
-            $model->save();
-
-            return $this->redirect(['view', 'id' => $model->CategoriaId]);
+          // var_dump($model->file);
+          // die;
+          if(is_null($model->file)){
+            //si es nulo seteo imagen no tiene imagen.
+            $model->CategoriaImagen = 'uploads/sinimagen.jpg';
+          }else{
+            //si no es null se adjunto archivo.
+            $model->file->saveAs('uploads/' . $model->file->baseName . '.' . $model->file->extension);
+            $model->CategoriaImagen = 'uploads/' . $model->file->baseName . '.' . $model->file->extension;
+          }
+          //guardo.
+          $model->save();
+          return $this->redirect(['view', 'id' => $model->CategoriaId]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -93,7 +101,18 @@ class CategoriaController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        //if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->file = UploadedFile::getInstance($model, 'file');
+
+            if(!is_null($model->file)){
+              //si no es null, adjunto nuevo archivo.
+              $model->file->saveAs('uploads/' . $model->file->baseName . '.' . $model->file->extension);
+              $model->CategoriaImagen = 'uploads/' . $model->file->baseName . '.' . $model->file->extension;
+            }
+            
+            $model->save();
             return $this->redirect(['view', 'id' => $model->CategoriaId]);
         } else {
             return $this->render('update', [
@@ -110,6 +129,10 @@ class CategoriaController extends Controller
      */
     public function actionDelete($id)
     {
+        //borrar en el folder, solo si es una imagen personalizada
+        if($this->findModel($id)->CategoriaImagen != 'uploads/sinimagen.jpg'){
+          unlink($this->findModel($id)->CategoriaImagen);
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
