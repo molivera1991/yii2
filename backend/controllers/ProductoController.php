@@ -70,18 +70,35 @@ class ProductoController extends Controller
 
           //subir imagen al file system
           $model->file = UploadedFile::getInstance($model, 'file');
-          $model->file->saveAs('uploads/' . $model->file->baseName . '.' . $model->file->extension);
-          $model->ProductoImagen1 = 'uploads/' . $model->file->baseName . '.' . $model->file->extension;
+
+          if(is_null($model->file)){
+            //si es nulo seteo imagen no tiene imagen.
+            $model->ProductoImagen1 = 'uploads/sinimagen.jpg';
+          }else{
+            //si no es null se adjunto archivo.
+            $model->file->saveAs('uploads/' . $model->file->baseName . '.' . $model->file->extension);
+            $model->ProductoImagen1 = 'uploads/' . $model->file->baseName . '.' . $model->file->extension;
+          }
 
           //imagen2
           $model->file2 = UploadedFile::getInstance($model, 'file2');
-          $model->file2->saveAs('uploads/' . $model->file2->baseName . '.' . $model->file2->extension);
-          $model->ProductoImagen2 = 'uploads/' . $model->file2->baseName . '.' . $model->file2->extension;
+          if(is_null($model->file2)){
+            //si es nulo seteo imagen no tiene imagen.
+            $model->ProductoImagen2 = 'uploads/sinimagen.jpg';
+          }else{
+            $model->file2->saveAs('uploads/' . $model->file2->baseName . '.' . $model->file2->extension);
+            $model->ProductoImagen2 = 'uploads/' . $model->file2->baseName . '.' . $model->file2->extension;
+          }
 
           //imagen3
           $model->file3 = UploadedFile::getInstance($model, 'file3');
-          $model->file3->saveAs('uploads/' . $model->file3->baseName . '.' . $model->file3->extension);
-          $model->ProductoImagen3 = 'uploads/' . $model->file3->baseName . '.' . $model->file3->extension;
+          if(is_null($model->file3)){
+            //si es nulo seteo imagen no tiene imagen.
+            $model->ProductoImagen3 = 'uploads/sinimagen.jpg';
+          }else{
+            $model->file3->saveAs('uploads/' . $model->file3->baseName . '.' . $model->file3->extension);
+            $model->ProductoImagen3 = 'uploads/' . $model->file3->baseName . '.' . $model->file3->extension;
+          }
 
           $model->save();
 
@@ -103,7 +120,34 @@ class ProductoController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        //if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->file = UploadedFile::getInstance($model, 'file');
+
+            if(!is_null($model->file)){
+              //si no es null, adjunto nuevo archivo.
+              $model->file->saveAs('uploads/' . $model->file->baseName . '.' . $model->file->extension);
+              $model->ProductoImagen1 = 'uploads/' . $model->file->baseName . '.' . $model->file->extension;
+            }
+
+            $model->file2 = Uploadedfile::getInstance($model, 'file2');
+
+            if(!is_null($model->file2)){
+              //si no es null, adjunto nuevo archivo.
+              $model->file2->saveAs('uploads/' . $model->file2->baseName . '.' . $model->file2->extension);
+              $model->ProductoImagen2 = 'uploads/' . $model->file2->baseName . '.' . $model->file2->extension;
+            }
+
+            $model->file3 = Uploadedfile::getInstance($model, 'file3');
+
+            if(!is_null($model->file3)){
+              //si no es null, adjunto nuevo archivo.
+              $model->file3->saveAs('uploads/' . $model->file3->baseName . '.' . $model->file3->extension);
+              $model->ProductoImagen3 = 'uploads/' . $model->file3->baseName . '.' . $model->file3->extension;
+            }
+
+            $model->save();
             return $this->redirect(['view', 'id' => $model->ProductoId]);
         } else {
             return $this->render('update', [
@@ -120,6 +164,17 @@ class ProductoController extends Controller
      */
     public function actionDelete($id)
     {
+
+        //borrar en el folder, solo si es una imagen personalizada
+        if($this->findModel($id)->ProductoImagen1 != 'uploads/sinimagen.jpg'){
+          unlink($this->findModel($id)->ProductoImagen1);
+        }
+        if($this->findModel($id)->ProductoImagen2 != 'uploads/sinimagen.jpg'){
+          unlink($this->findModel($id)->ProductoImagen2);
+        }
+        if($this->findModel($id)->ProductoImagen3 != 'uploads/sinimagen.jpg'){
+          unlink($this->findModel($id)->ProductoImagen3);
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
