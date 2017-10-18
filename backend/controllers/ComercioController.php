@@ -71,8 +71,15 @@ class ComercioController extends Controller
 
         //subir imagen al file system
         $model->file = UploadedFile::getInstance($model, 'file');
-        $model->file->saveAs('uploads/' . $model->file->baseName . '.' . $model->file->extension);
-        $model->ComercioLogo = 'uploads/' . $model->file->baseName . '.' . $model->file->extension;
+
+        if(is_null($model->file)){
+          //si es nulo seteo imagen no tiene imagen.
+            $model->ComercioLogo = 'uploads/sinimagen.jpg';
+        }else{
+          //si no es null se adjunto archivo.
+          $model->file->saveAs('uploads/' . $model->file->baseName . '.' . $model->file->extension);
+          $model->ComercioLogo = 'uploads/' . $model->file->baseName . '.' . $model->file->extension;
+        }
 
         $model->save();
 
@@ -94,7 +101,18 @@ class ComercioController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        //if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->file = UploadedFile::getInstance($model, 'file');
+
+            if(!is_null($model->file)){
+              //si no es null, adjunto nuevo archivo.
+              $model->file->saveAs('uploads/' . $model->file->baseName . '.' . $model->file->extension);
+              $model->ComercioLogo = 'uploads/' . $model->file->baseName . '.' . $model->file->extension;
+            }
+
+            $model->save();
             return $this->redirect(['view', 'id' => $model->ComercioId]);
         } else {
             return $this->render('update', [
@@ -111,6 +129,11 @@ class ComercioController extends Controller
      */
     public function actionDelete($id)
     {
+
+        //borrar en el folder, solo si es una imagen personalizada
+        if($this->findModel($id)->ComercioLogo != 'uploads/sinimagen.jpg'){
+          unlink($this->findModel($id)->ComercioLogo);
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
