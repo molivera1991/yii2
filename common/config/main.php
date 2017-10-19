@@ -11,4 +11,12 @@ return [
             'class' => 'api\Module',
         ],
     ],
+    'components' => [
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
+        // ...
+    ],
 ];
+
+?>
