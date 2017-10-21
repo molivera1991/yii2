@@ -64,6 +64,11 @@ class Usuario extends \yii\db\ActiveRecord
         $this->UsuarioPass = Yii::$app->security->generatePasswordHash($password);
     }
 
+    public function validatePassword($password)
+    {
+        return Yii::$app->security->validatePassword($password, $this->password_hash);
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */

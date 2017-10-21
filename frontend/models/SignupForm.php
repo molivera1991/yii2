@@ -52,8 +52,8 @@ class SignupForm extends Model
         $user->setPassword($this->UsuarioPass);
         //Asigna rol
         $auth = \Yii:: $app ->authManager;
-        $authorRole = $auth ->getRole( 'Cliente' );
-        $auth ->assign( $authorRole , $user ->getId());
+        $ClienteRole = $auth ->getRole( 'Cliente' );
+        $auth ->assign( $ClienteRole , $user ->getId());
 
         return $user->save() ? $user : null;
     }
