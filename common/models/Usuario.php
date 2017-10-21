@@ -54,6 +54,16 @@ class Usuario extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getId()
+    {
+        return $this->getPrimaryKey();
+    }
+
+    public function setPassword($password)
+    {
+        $this->UsuarioPass = Yii::$app->security->generatePasswordHash($password);
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
