@@ -9,6 +9,7 @@ class RbacController extends Controller
     public function actionInit()
     {
         $auth = Yii::$app->authManager;
+        /* Ya esta en la base:
         $cliente = $auth->createRole('Cliente');
         $auth->add($cliente);
 
@@ -20,5 +21,6 @@ class RbacController extends Controller
 
         $despachador = $auth->createRole('Despachador');
         $auth->add($despachador);
+        */
     }
 }

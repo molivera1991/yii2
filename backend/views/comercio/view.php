@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
               'attribute' => 'Comercio Gerente',
               'format' => 'raw',
               'value' => function($model) {
-                return $model->getunUsuario($model->ComercioGerente)->UsuarioNombre ;
+                return $model->getunUsuario($model->ComercioGerente)->name ;
               },
             ],
         ],

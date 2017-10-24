@@ -12,7 +12,7 @@ use Yii;
  * @property string $EnvioEstado
  * @property integer $UsuarioDespachador
  *
- * @property Usuario $usuarioDespachador
+ * @property User $usuarioDespachador
  * @property Pedido[] $pedidos
  */
 class Envio extends \yii\db\ActiveRecord
@@ -35,7 +35,7 @@ class Envio extends \yii\db\ActiveRecord
             [['EnvioId', 'UsuarioDespachador'], 'integer'],
             [['EnvioCreado'], 'safe'],
             [['EnvioEstado'], 'string', 'max' => 25],
-            [['UsuarioDespachador'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::className(), 'targetAttribute' => ['UsuarioDespachador' => 'UsuarioId']],
+            [['UsuarioDespachador'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['UsuarioDespachador' => 'id']],
         ];
     }
 
@@ -57,7 +57,7 @@ class Envio extends \yii\db\ActiveRecord
      */
     public function getUsuarioDespachador()
     {
-        return $this->hasOne(Usuario::className(), ['UsuarioId' => 'UsuarioDespachador']);
+        return $this->hasOne(User::className(), ['id' => 'UsuarioDespachador']);
     }
 
     /**

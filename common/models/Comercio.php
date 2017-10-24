@@ -15,7 +15,7 @@ use yii\helpers\ArrayHelper;
  * @property string $ComercioLogo
  * @property integer $ComercioGerente
  *
- * @property Usuario $comercioGerente
+ * @property User $comercioGerente
  * @property Producto[] $productos
  */
 class Comercio extends \yii\db\ActiveRecord
@@ -41,7 +41,7 @@ class Comercio extends \yii\db\ActiveRecord
             [['file'], 'file'],
             [['ComercioNombre', 'ComercioLatitud', 'ComercioLongitud'], 'string', 'max' => 45],
             [['ComercioLogo'], 'string', 'max' => 200],
-            [['ComercioGerente'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::className(), 'targetAttribute' => ['ComercioGerente' => 'UsuarioId']],
+            [['ComercioGerente'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['ComercioGerente' => 'id']],
         ];
     }
 
@@ -66,7 +66,7 @@ class Comercio extends \yii\db\ActiveRecord
      */
     public function getComercioGerente()
     {
-        return $this->hasOne(Usuario::className(), ['UsuarioId' => 'ComercioGerente']);
+        return $this->hasOne(User::className(), ['id' => 'ComercioGerente']);
     }
 
     /**
@@ -79,12 +79,12 @@ class Comercio extends \yii\db\ActiveRecord
 
     //RELLENAR DROOPDOWNS o Select2 de Claves Foraneas
     public function getcomboUsuario() {
-    $models = Usuario::find()->asArray()->all();
-    return ArrayHelper::map($models, 'UsuarioId', 'UsuarioNombre');
+    $models = User::find()->asArray()->all();
+    return ArrayHelper::map($models, 'id', 'name');
     }
-    
+
     public function getunUsuario($idusu) {
-    return $models = Usuario::findOne($idusu);
+    return $models = User::findOne($idusu);
     //return ArrayHelper::map($models, 'UsuarioId', 'UsuarioNombre');
     }
 }

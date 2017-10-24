@@ -18,7 +18,7 @@ use Yii;
  * @property integer $PedidoOrdenEnvio
  *
  * @property Envio $pedidoEnvio
- * @property Usuario $pedidoCliente
+ * @property User $pedidoCliente
  * @property Pedidoproducto[] $pedidoproductos
  * @property Producto[] $productos
  */
@@ -45,7 +45,7 @@ class Pedido extends \yii\db\ActiveRecord
             [['PedidoDestinoLatitud', 'PedidoDestinoLonguitud', 'PedidoNumeroSeguimiento'], 'string', 'max' => 45],
             [['PedidoNumeroSeguimiento'], 'unique'],
             [['PedidoEnvio'], 'exist', 'skipOnError' => true, 'targetClass' => Envio::className(), 'targetAttribute' => ['PedidoEnvio' => 'EnvioId']],
-            [['PedidoCliente'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::className(), 'targetAttribute' => ['PedidoCliente' => 'UsuarioId']],
+            [['PedidoCliente'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['PedidoCliente' => 'id']],
         ];
     }
 
@@ -80,7 +80,7 @@ class Pedido extends \yii\db\ActiveRecord
      */
     public function getPedidoCliente()
     {
-        return $this->hasOne(Usuario::className(), ['UsuarioId' => 'PedidoCliente']);
+        return $this->hasOne(User::className(), ['id' => 'PedidoCliente']);
     }
 
     /**
