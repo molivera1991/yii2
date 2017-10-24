@@ -9,12 +9,12 @@ use common\models\User;
  */
 class SignupForm extends Model
 {
-    public $UsuarioNick;
-    public $UsuarioNombre;
-    public $UsuarioApellido;
-    public $UsuarioCI;
-    public $UsuarioMail;
-    public $UsuarioPass;
+    public $username;
+    public $name;
+    public $last_name;
+    public $ci;
+    public $email;
+    public $pass;
 
 
     /**
@@ -23,18 +23,18 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            ['UsuarioNick', 'required'],
-            ['UsuarioNombre', 'required'],
-            ['UsuarioApellido', 'required'],
-            ['UsuarioCI', 'required'],
+            ['username', 'required'],
+            ['name', 'required'],
+            ['last_name', 'required'],
+            ['ci', 'required'],
 
-            ['UsuarioMail', 'trim'],
-            ['UsuarioMail', 'required'],
-            ['UsuarioMail', 'unique', 'targetClass' => '\common\models\Usuario', 'message' => 'This mail has already been taken.'],
-            ['UsuarioMail', 'string', 'min' => 2, 'max' => 255],
+            ['email', 'trim'],
+            ['email', 'required'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This mail has already been taken.'],
+            ['email', 'string', 'min' => 2, 'max' => 255],
 
-            ['UsuarioPass', 'required'],
-            ['UsuarioPass', 'string', 'min' => 6],
+            ['pass', 'required'],
+            ['pass', 'string', 'min' => 6],
         ];
     }
 
@@ -52,15 +52,15 @@ class SignupForm extends Model
         $user = new user();
         //Toma la proxima id
         $user->id = user::find()->max('id') + 1;
-        $user->username = $this->UsuarioNick;
-        $user->name = $this->UsuarioNombre;
-        $user->last_name = $this->UsuarioApellido;
-        $user->email = $this->UsuarioMail;
-        $user->ci = $this->UsuarioCI;
+        $user->username = $this->username;
+        $user->name = $this->name;
+        $user->last_name = $this->last_name;
+        $user->email = $this->email;
+        $user->ci = $this->ci;
         $user->generateAuthKey();
         $user->generatePasswordResetToken();
         //Encripta contraseña
-        $user->setPassword($this->UsuarioPass);
+        $user->setPassword($this->pass);
         //Asigna rol
         $auth = \Yii:: $app ->authManager;
         $ClienteRole = $auth ->getRole( 'Cliente' );
