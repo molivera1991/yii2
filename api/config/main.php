@@ -22,6 +22,10 @@ return [
             'basePath' => '@app/modules/v2',
             'class' => 'api\modules\v2\Module'
         ],
+        'v3' => [
+            'basePath' => '@app/modules/v3',
+            'class' => 'api\modules\v3\Module'
+        ],
     ],
     'components' => [
         'user' => [
@@ -96,6 +100,15 @@ return [
            'rules' => [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/country'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'v2/categoria'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'v3/categoria'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'v3/comercio'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'v3/country'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'v3/envio'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'v3/loginform'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'v3/pedido'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'v3/pedidoproducto'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'v3/producto'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'v3/user'],
             ],
 
 
