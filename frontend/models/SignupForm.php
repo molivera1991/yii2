@@ -24,9 +24,13 @@ class SignupForm extends Model
     {
         return [
             ['username', 'required'],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
+
             ['name', 'required'],
             ['last_name', 'required'],
+            
             ['ci', 'required'],
+            ['ci', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This ci has already been taken.'],
 
             ['email', 'trim'],
             ['email', 'required'],
