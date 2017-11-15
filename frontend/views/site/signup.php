@@ -6,6 +6,7 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use kartik\file\FileInput;
 
 $this->title = 'Signup';
 $this->params['breadcrumbs'][] = $this->title;
@@ -26,6 +27,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($model, 'last_name') ?>
 
                 <?= $form->field($model, 'ci') ?>
+
+                <?=  $form->field($model, 'file')->widget(FileInput::classname(), [
+                      'options' => ['accept' => 'image/*'],
+                           'pluginOptions'=>['allowedFileExtensions'=>['jpg','png'],'showUpload' => false,],
+                      ]);   ?>
 
                 <?= $form->field($model, 'email') ?>
 

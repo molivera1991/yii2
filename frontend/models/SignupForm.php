@@ -3,6 +3,7 @@ namespace frontend\models;
 
 use yii\base\Model;
 use common\models\User;
+use yii\web\UploadedFile;
 
 /**
  * Signup form
@@ -15,6 +16,8 @@ class SignupForm extends Model
     public $ci;
     public $email;
     public $pass;
+    public $file;
+    public $image;
 
 
     /**
@@ -28,9 +31,12 @@ class SignupForm extends Model
 
             ['name', 'required'],
             ['last_name', 'required'],
-            
+
             ['ci', 'required'],
             ['ci', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This ci has already been taken.'],
+
+            [['file'], 'file'],
+            [['image'], 'string', 'max' => 200],
 
             ['email', 'trim'],
             ['email', 'required'],
@@ -61,6 +67,23 @@ class SignupForm extends Model
         $user->last_name = $this->last_name;
         $user->email = $this->email;
         $user->ci = $this->ci;
+
+        // var_dump($this);
+        //
+        // //subir imagen al file system
+        // $user->file = UploadedFile::getInstance($this, 'file');
+        //
+        // // var_dump($model->file);
+        // // die;
+        // if(is_null($user->file)){
+        //   //si es nulo seteo imagen no tiene imagen.
+        //   $user->image = 'uploads/sinimagen.jpg';
+        // }else{
+        //   //si no es null se adjunto archivo.
+        //   $user->file->saveAs('uploads/' . $user->file->baseName . '.' . $user->file->extension);
+        //   $user->image = 'uploads/' . $user->file->baseName . '.' . $user->file->extension;
+        // }
+
         $user->generateAuthKey();
         $user->generatePasswordResetToken();
         //Encripta contraseña
