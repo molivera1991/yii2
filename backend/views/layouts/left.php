@@ -40,7 +40,8 @@
                     ['label' => 'Comercios', 'icon' => 'building', 'url' => ['/comercio']],
                     ['label' => 'Productos', 'icon' => 'cart-plus', 'url' => ['/producto']],
                     ['label' => 'Pedidos', 'icon' => 'cart-plus', 'url' => ['/pedido']],
-
+                    ['label' => 'PedidoProducto', 'icon' => 'cart-plus', 'url' => ['/pedidoproducto']],
+                    ['label' => 'Envio', 'icon' => 'cart-plus', 'url' => ['/envio']],
 
 
                     // [

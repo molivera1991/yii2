@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "pedidoproducto".
@@ -64,4 +65,15 @@ class Pedidoproducto extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Producto::className(), ['ProductoId' => 'ProductoId']);
     }
+
+    public function getcomboPedido() {
+    $models = Pedido::find()->asArray()->all();
+    return ArrayHelper::map($models, 'PedidoId', 'PedidoId');
+    }
+
+    public function getcomboProducto() {
+    $models = Producto::find()->asArray()->all();
+    return ArrayHelper::map($models, 'ProductoId', 'ProductoNombre');
+    }
+
 }

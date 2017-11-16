@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "envio".
@@ -13,6 +14,7 @@ use Yii;
  * @property integer $UsuarioDespachador
  *
  * @property User $usuarioDespachador
+ * @property User $usuarioDespachador0
  * @property Pedido[] $pedidos
  */
 class Envio extends \yii\db\ActiveRecord
@@ -31,10 +33,11 @@ class Envio extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['EnvioId', 'EnvioCreado', 'EnvioEstado', 'UsuarioDespachador'], 'required'],
-            [['EnvioId', 'UsuarioDespachador'], 'integer'],
+            [['EnvioCreado', 'EnvioEstado', 'UsuarioDespachador'], 'required'],
             [['EnvioCreado'], 'safe'],
+            [['UsuarioDespachador'], 'integer'],
             [['EnvioEstado'], 'string', 'max' => 25],
+            [['UsuarioDespachador'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['UsuarioDespachador' => 'id']],
             [['UsuarioDespachador'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['UsuarioDespachador' => 'id']],
         ];
     }
@@ -63,8 +66,22 @@ class Envio extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getUsuarioDespachador0()
+    {
+        return $this->hasOne(User::className(), ['id' => 'UsuarioDespachador']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getPedidos()
     {
         return $this->hasMany(Pedido::className(), ['PedidoEnvio' => 'EnvioId']);
+    }
+
+    //RELLENAR DROOPDOWNS o Select2 de Claves Foraneas
+    public function getcomboUsuario() {
+    $models = User::find()->asArray()->all();
+    return ArrayHelper::map($models, 'id', 'name');
     }
 }

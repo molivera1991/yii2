@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use kartik\select2\Select2;
 /* @var $this yii\web\View */
 /* @var $model common\models\Pedidoproducto */
 /* @var $form yii\widgets\ActiveForm */
@@ -12,9 +12,23 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'PedidoId')->textInput() ?>
+    <?= $form->field($model, 'PedidoId')->widget(Select2::classname(), [
+            'data' => $model->comboPedido,
+            'options' => ['placeholder' => 'Seleccione Pedido','style'=>'width:250px;'],
+            'pluginOptions' => [
+            'allowClear' => true
+            ],
+            ]);
+    ?>
 
-    <?= $form->field($model, 'ProductoId')->textInput() ?>
+    <?= $form->field($model, 'ProductoId')->widget(Select2::classname(), [
+            'data' => $model->comboProducto,
+            'options' => ['placeholder' => 'Seleccione Producto','style'=>'width:250px;'],
+            'pluginOptions' => [
+            'allowClear' => true
+            ],
+            ]);
+    ?>
 
     <?= $form->field($model, 'PedidoProductoCantidad')->textInput() ?>
 
