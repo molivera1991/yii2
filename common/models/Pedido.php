@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
+
 
 /**
  * This is the model class for table "pedido".
@@ -97,5 +99,15 @@ class Pedido extends \yii\db\ActiveRecord
     public function getProductos()
     {
         return $this->hasMany(Producto::className(), ['ProductoId' => 'ProductoId'])->viaTable('pedidoproducto', ['PedidoId' => 'PedidoId']);
+    }
+
+    public function getcomboUsuario() {
+    $models = User::find()->asArray()->all();
+    return ArrayHelper::map($models, 'id', 'name');
+    }
+
+    public function getcomboEnvio() {
+    $models = Envio::find()->asArray()->all();
+    return ArrayHelper::map($models, 'EnvioId', 'EnvioId');
     }
 }
