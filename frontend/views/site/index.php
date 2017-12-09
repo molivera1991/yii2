@@ -12,7 +12,7 @@ $this->title = 'My Yii Application';
     </div>
 
     <div class="jumbotron">
-        <h1>Estas en el backend!</h1>
+        <h1>Estas en el frontend!</h1>
 
     </div>
 

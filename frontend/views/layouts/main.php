@@ -37,12 +37,14 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'Comercios', 'url' => ['/site/comercios']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
+        $menuItems[] = ['label' => 'Comercios', 'url' => ['/site/comercios']];
+        $menuItems[] = ['label' => 'Productos', 'url' => ['/site/productos']];
+        $menuItems[] = ['label' => 'Pedidos', 'url' => ['/site/pedidos']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(

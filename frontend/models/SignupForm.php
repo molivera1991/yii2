@@ -18,6 +18,7 @@ class SignupForm extends Model
     public $pass;
     public $file;
     public $image;
+    public $role;
 
 
     /**
@@ -88,6 +89,7 @@ class SignupForm extends Model
         $user->generatePasswordResetToken();
         //Encripta contraseña
         $user->setPassword($this->pass);
+        $user->role = 'Cliente';
         //Asigna rol
         $auth = \Yii:: $app ->authManager;
         $ClienteRole = $auth ->getRole( 'Cliente' );

@@ -25,6 +25,7 @@ use yii\web\IdentityInterface;
  * @property string $password write-only password
  * @property string $image
  * @property string $file
+ * @property string $role
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -132,6 +133,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function getId()
     {
         return $this->getPrimaryKey();
+    }
+
+    public function getRole()
+    {
+        return $this->role;
     }
 
     /**
