@@ -59,7 +59,7 @@ class LoginForm extends Model
           if('Cliente' == $this->getUser()->role){
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
           } else {
-            $this->addError('username', 'Usuario no valido');
+            $this->addError('username', 'Usuario invalido');
             return false;
           }
         } else {
