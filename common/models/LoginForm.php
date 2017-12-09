@@ -53,18 +53,27 @@ class LoginForm extends Model
      *
      * @return bool whether the user is logged in successfully
      */
-    public function login()
+    public function login($User_role)
     {
+      if($User_role == 'Cliente') {
         if ($this->validate()) {
-          if('Cliente' == $this->getUser()->role){
+          if($User_role == $this->getUser()->role){
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
           } else {
             $this->addError('username', 'Usuario invalido');
             return false;
           }
-        } else {
-            return false;
         }
+      } else {
+        if ($this->validate()) {
+          if(($this->getUser()->role == 'Administrador')||($this->getUser()->role == 'Despachador')||($this->getUser()->role == 'Gerente')) {
+            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+          }  else {
+            $this->addError('username', 'Usuario invalido');
+            return false;
+          }
+        }
+      }
     }
 
     /**
